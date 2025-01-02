@@ -18,8 +18,7 @@ This repository contains a Solidity-based smart contract for conducting decentra
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/Olu-wafemi/voting-contract.git
    ```
 2. Install dependencies:
    ```bash
