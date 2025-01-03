@@ -49,4 +49,14 @@ contract Ballot {
         voters[voter_address].weight = 1
 
     }
+
+    function vote(uint index) external{
+        Voter storage participant = voters[msg.sender]
+        require(participant.weight != 0);
+        require(!participant.voted);
+        participant.voted = true;
+        participant.vote = index;
+
+        candidates[index].voteCount += sender.weight
+    }
 }
