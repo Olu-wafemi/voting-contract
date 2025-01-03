@@ -59,4 +59,18 @@ contract Ballot {
 
         candidates[index].voteCount += sender.weight
     }
-}
+
+    function getWinner() public view returns (uint winner){
+        uint countvotewins = 0;
+        for (uint i = 0; i< candidates.length; i++ ){
+            if(candidates[i].voteCount > countvotewins){
+                countvotewins = candidates[p].voteCount;
+                winner = i;
+            }
+        }
+    }
+    
+    function winnerName() external view returns (byte32 winnerName_){
+        winnerName_ = proposals[getWinner()].name
+    }
+
