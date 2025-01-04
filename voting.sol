@@ -3,7 +3,7 @@ pragma solidity >=0.7.0 <0.9.0;
 
 contract Ballot {
     struct Voter{
-        uint size;
+        uint size; //number of votes available
         address delegate;
         bool has_voted;
         uint vote;
