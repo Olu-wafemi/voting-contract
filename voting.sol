@@ -8,32 +8,36 @@ contract Ballot {
         bool has_voted;
         uint vote;
     }
+  
 
     address public admin;
+   
 
     struct Candidates {
-        bytes32 firstname;
-        bytes32 lastname;
-        uint age;
-        uint votecount;
-
+        bytes32 name;
+        uint voteCount;
     }
+
+      struct Winner{
+        bytes32 name;
+    }
+
+    bytes32[] winner;
 
     mapping(address => Voter) public voters;
 
     Candidates[] public candidates;
+    uint winnervotecount;
 
-    constructor(bytes32[] memory firstname, lastname, age){
-        admin = msg.sender
+    constructor(bytes32[] memory names){
+        admin = msg.sender;
         voters[admin].size = 1;
 
-        for (uint i = 0; i < candidateNames.length; i++){
-            candidates.push(Candidate({
-                firstname: firstname,
-                lastname: lastname,
-                age: age,
+        for (uint i = 0; i < names.length; i++){
+            candidates.push(Candidates({
+                name: names[i],
                 voteCount: 0
-            }))
+            }));
 
         }
 
@@ -44,42 +48,48 @@ contract Ballot {
 
 
         require(msg.sender == admin);
-        require(!voters[voter_address].voted);
-        require(voters[voter_address].weight == 0);
-        voters[voter_address].weight = 1
+        require(!voters[voter_address].has_voted);
+        require(voters[voter_address].size == 0);
+        voters[voter_address].size = 1;
 
     }
 
     function vote(uint index) external{
-        Voter storage participant = voters[msg.sender]
-        require(participant.weight != 0);
-        require(!participant.voted);
-        participant.voted = true;
+        Voter storage participant = voters[msg.sender];
+        require(participant.size != 0);
+        require(!participant.has_voted);
+        participant.has_voted = true;
         participant.vote = index;
 
-        candidates[index].voteCount += sender.weight
+        candidates[index].voteCount += participant.size;
     }
 
-    function getWinner() public view returns (uint countvotewins){
+    function getWinner() public view returns (uint countvotewins_){
         uint countvotewins = 0;
         for (uint i = 0; i< candidates.length; i++ ){
             if(candidates[i].voteCount > countvotewins){
-                countvotewins = candidates[p].voteCount;
-                winner = i;
+                countvotewins_ = candidates[i].voteCount;
+                
             }
         }
     }
     
-    function winnerName() external view returns (winner[]){
+    function winnerName() external  returns (bytes32[] memory winner_){
 
-        winnervotecount = getWinner()
-        Winner[] storage
+       
+        
 
 
 
         for (uint i =0; i<candidates.length; i++){
 
-            Winner.push(Candidates[winnervotecount].name)  
+            if(candidates[i].voteCount == getWinner()){
+                winner.push(candidates[i].name);
+            }
+
+            
         }
+        winner_ = winner;
     }
 
+}
