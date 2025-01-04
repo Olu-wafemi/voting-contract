@@ -60,7 +60,7 @@ contract Ballot {
         candidates[index].voteCount += sender.weight
     }
 
-    function getWinner() public view returns (uint winner){
+    function getWinner() public view returns (uint countvotewins){
         uint countvotewins = 0;
         for (uint i = 0; i< candidates.length; i++ ){
             if(candidates[i].voteCount > countvotewins){
@@ -70,7 +70,16 @@ contract Ballot {
         }
     }
     
-    function winnerName() external view returns (byte32 winnerName_){
-        winnerName_ = proposals[getWinner()].name
+    function winnerName() external view returns (winner[]){
+
+        winnervotecount = getWinner()
+        Winner[] storage
+
+
+
+        for (uint i =0; i<candidates.length; i++){
+
+            Winner.push(Candidates[winnervotecount].name)  
+        }
     }
 
