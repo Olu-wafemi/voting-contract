@@ -68,6 +68,6 @@ contract Ballot {
                 winner.push(candidates[i].name);
             }
         }
-        //winner_ = winner;
+        winner_ = winner;
     }
 }
