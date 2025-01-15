@@ -3,17 +3,17 @@ pragma solidity >=0.7.0 <0.9.0;
 
 contract Ballot {
     struct Voter {
-        uint size; //number of votes available
+        uint256 size; //number of votes available
         address delegate;
         bool has_voted;
-        uint vote;
+        uint256 vote;
     }
 
     address public admin;
 
     struct Candidates {
         bytes32 name;
-        uint voteCount;
+        uint256 voteCount;
     }
 
     struct Winner {
@@ -25,13 +25,13 @@ contract Ballot {
     mapping(address => Voter) public voters;
 
     Candidates[] public candidates;
-    uint winnervotecount;
+    uint256 winnervotecount;
 
     constructor(bytes32[2] memory names) {
         admin = msg.sender;
         voters[admin].size = 1;
 
-        for (uint i = 0; i < names.length; i++) {
+        for (uint256 i = 0; i < names.length; i++) {
             candidates.push(Candidates({name: names[i], voteCount: 0}));
         }
     }
@@ -43,7 +43,7 @@ contract Ballot {
         voters[voter_address].size = 1;
     }
 
-    function vote(uint index) external {
+    function vote(uint256 index) external {
         Voter storage participant = voters[msg.sender];
         require(participant.size != 0);
         require(!participant.has_voted);
@@ -53,9 +53,9 @@ contract Ballot {
         candidates[index].voteCount += participant.size;
     }
 
-    function getWinner() public view returns (uint countvotewins_) {
-        uint countvotewins = 0;
-        for (uint i = 0; i < candidates.length; i++) {
+    function getWinner() public view returns (uint256 countvotewins_) {
+        uint256 countvotewins = 0;
+        for (uint256 i = 0; i < candidates.length; i++) {
             if (candidates[i].voteCount > countvotewins) {
                 countvotewins_ = candidates[i].voteCount;
             }
@@ -63,7 +63,7 @@ contract Ballot {
     }
 
     function winnerName() external returns (bytes32[] memory winner_) {
-        for (uint i = 0; i < candidates.length; i++) {
+        for (uint256 i = 0; i < candidates.length; i++) {
             if (candidates[i].voteCount == getWinner()) {
                 winner.push(candidates[i].name);
             }
