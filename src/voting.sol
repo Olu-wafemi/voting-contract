@@ -27,7 +27,7 @@ contract Ballot {
     Candidates[] public candidates;
     uint winnervotecount;
 
-    constructor(bytes32[] memory names) {
+    constructor(bytes32[2] memory names) {
         admin = msg.sender;
         voters[admin].size = 1;
 
